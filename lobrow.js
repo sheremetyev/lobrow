@@ -114,9 +114,10 @@ var lobrow = function(global) {
         }
         
         if (currentlyLoading[normalizedName]) {
-            throw new Error("Cycle: module '"+normalizedName+"' is already loading");
+            currentlyLoading[normalizedName].push(callback);
+            return;
         }
-        currentlyLoading[normalizedName] = true;
+        currentlyLoading[normalizedName] = [callback];
         var fileName = normalizedName+".js";
         try {
             var req = new XMLHttpRequest();
@@ -126,9 +127,12 @@ var lobrow = function(global) {
             req.onreadystatechange = function(event) {
                 if (req.readyState === 4 /* complete */) {
                     evaluateRawModuleSource(normalizedName, req.responseText, function (result) {
+                        var callbacks = currentlyLoading[normalizedName];
                         delete currentlyLoading[normalizedName];
                         moduleCache[normalizedName] = result;
-                        callback(result);
+                        callbacks.forEach(function(callback) {
+                            callback(result);
+                        });
                     });
                 }
             }
