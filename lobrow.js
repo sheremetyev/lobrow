@@ -122,6 +122,8 @@ var lobrow = function(global) {
         try {
             var req = new XMLHttpRequest();
             req.open('GET', fileName, true);
+            req.setRequestHeader('Cache-Control', 'no-cache');
+            req.setRequestHeader('If-Modified-Since', 'Thu, 1 Jan 1970 00:00:00 GMT');
             // In Firefox, a JavaScript MIME type means that the script is immediately eval-ed
             req.overrideMimeType("text/plain");
             req.onreadystatechange = function(event) {
