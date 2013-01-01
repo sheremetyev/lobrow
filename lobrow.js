@@ -148,7 +148,8 @@ var lobrow = function(global) {
     }
     
     function evaluateRawModuleSource(normalizedModuleName, bodySource, callback) {
-        var body = eval("(function (require,exports,module,global) {"+bodySource+"})");
+        var srcURL = "//@ sourceURL=" + normalizedModuleName;
+        var body = eval("(function (require,exports,module,global) {\n"+bodySource+"})\n" + srcURL);
         runEvaluatedModule(normalizedModuleName, body, bodySource, callback);
     }
 
