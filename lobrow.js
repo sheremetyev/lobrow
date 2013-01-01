@@ -125,7 +125,9 @@ var lobrow = function(global) {
             req.setRequestHeader('Cache-Control', 'no-cache');
             req.setRequestHeader('If-Modified-Since', 'Thu, 1 Jan 1970 00:00:00 GMT');
             // In Firefox, a JavaScript MIME type means that the script is immediately eval-ed
-            req.overrideMimeType("text/plain");
+            // but IE does not support XMLHttpRequest.overrideMimeType() method
+            if (req.overrideMimeType)
+                req.overrideMimeType("text/plain");
             req.onreadystatechange = function(event) {
                 if (req.readyState === 4 /* complete */) {
                     evaluateRawModuleSource(normalizedName, req.responseText, function (result) {
