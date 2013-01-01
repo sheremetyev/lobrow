@@ -1,0 +1,13 @@
+{
+  "name": "lobrow",
+  "version": "0.1.0",
+  "description": "Load Node modules in web browsers",
+  "keywords": [
+    "module",
+    "browser"
+  ],
+  "author": "Axel Rauschmayer",
+  "contributors": [
+    "Fedor Sheremetyev <sheremetyev@gmail.com>"
+  ]
+}
