@@ -246,6 +246,7 @@ var lobrow = function(global) {
                 resolvedName = e.globalNames[importName];
             }
             switch(typeof resolvedName) {
+                case "function":
                 case "object": // also result for null, but can't happen here
                     if (!moduleCache[importName]) {
                         moduleCache[importName] = resolvedName;
