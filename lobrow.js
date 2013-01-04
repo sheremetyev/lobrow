@@ -120,7 +120,9 @@ var lobrow = function(global) {
         currentlyLoading[normalizedName] = [callback];
         var fileName = normalizedName+".js";
         try {
-            var req = new XMLHttpRequest();
+            var req = typeof ActiveXObject !== 'undefined' ?
+              new ActiveXObject('Microsoft.XMLHTTP') :
+              new XMLHttpRequest();
             req.open('GET', fileName, true);
             req.setRequestHeader('Cache-Control', 'no-cache');
             req.setRequestHeader('If-Modified-Since', 'Thu, 1 Jan 1970 00:00:00 GMT');
